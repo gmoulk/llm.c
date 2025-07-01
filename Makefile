@@ -1,9 +1,11 @@
 CC ?= clang
 CFLAGS = -Ofast -Wno-unused-result -Wno-ignored-pragmas -Wno-unknown-attributes
 LDFLAGS =
+BLAS_LIBS = -lopenblas
+BLAS_INCLUDES =
 LDLIBS = -lm
 INCLUDES =
-CFLAGS_COND = -march=native
+CFLAGS_COND = -march=native -mavx2 -mfma
 
 # Find nvcc
 SHELL_UNAME = $(shell uname)
@@ -24,6 +26,18 @@ NCLL_INCUDES =
 NVCC_CUDNN =
 # By default we don't build with cudnn because it blows up compile time from a few seconds to ~minute
 USE_CUDNN ?= 0
+
+
+USE_MKL ?= 0
+
+ifeq ($(USE_MKL), 1)
+  MKLROOT = /opt/intel/mkl
+  BLAS_LIBS = -L$(MKLROOT)/lib/intel64 -lmkl_rt -lpthread -lm -ldl
+  BLAS_INCLUDES = -I$(MKLROOT)/include
+else
+  BLAS_LIBS = -lopenblas
+  BLAS_INCLUDES =
+endif
 
 # We will place .o files in the `build` directory (create it if it doesn't exist)
 BUILD_DIR = build
@@ -262,10 +276,10 @@ $(info ---------------------------------------------)
 all: $(TARGETS)
 
 train_gpt2: train_gpt2.c
-	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) $^ $(LDLIBS) $(OUTPUT_FILE)
+	$(CC) $(CFLAGS) $(INCLUDES) $(BLAS_INCLUDES) $(LDFLAGS) $^ $(LDLIBS) $(BLAS_LIBS) $(OUTPUT_FILE)
 
 test_gpt2: test_gpt2.c
-	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) $^ $(LDLIBS) $(OUTPUT_FILE)
+	$(CC) $(CFLAGS) $(INCLUDES) $(BLAS_INCLUDES) $(LDFLAGS) $^ $(LDLIBS) $(BLAS_LIBS) $(OUTPUT_FILE)
 
 $(NVCC_CUDNN): llmc/cudnn_att.cpp
 	$(NVCC) -c $(NVCC_FLAGS) $(PFLAGS) $^ $(NVCC_INCLUDES) -o $@
