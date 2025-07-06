@@ -1,7 +1,3 @@
-Absolutely! Here’s a clean, well-structured **Markdown** version of the `perf` analysis for your GPT-2 training:
-
----
-
 # 📈 `perf` Analysis for `train_gpt2`
 
 ## ✅ **Summary**
