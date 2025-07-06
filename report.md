@@ -2,7 +2,7 @@
 
 ## 1️⃣ Experiment Goal
 
-This experiment investigates how the number of OpenMP threads (`OMP_NUM_THREADS`) affects the training speed and behavior of a GPT-2 model on CPU.
+This experiment investigates how the number of OpenMP threads (`OMP_NUM_THREADS`) ,the use of AVX and BLAS affects the training speed and behavior of a GPT-2 model on CPU.
 
 ## 2️⃣ Experimental Setup
 
