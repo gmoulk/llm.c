@@ -162,7 +162,7 @@ void layernorm_backward(float* dinp, float* dweight, float* dbias,
     }
 }
 
-void matmul_forward_naive(float* out,
+void matmul_forward_naive_avx(float* out,
                                const float* inp, const float* weight, const float* bias,
                                int B, int T, int C, int OC) {
     #pragma omp parallel for collapse(2)

@@ -17,6 +17,7 @@ There will be other versions of this code that specialize it and make it fast.
 #include <time.h>
 #include <string.h>
 #include <unistd.h>
+#include "llmc/rand.h"
 #ifdef OMP
 #include <omp.h>
 #endif
