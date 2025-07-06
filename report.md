@@ -76,17 +76,18 @@ This experiment investigates how the number of OpenMP threads (`OMP_NUM_THREADS`
 | Aspect               | Observation                                                 |
 | -------------------- | ----------------------------------------------------------- |
 | **Correctness**      | ✅ Identical loss and generation                             |
-| **Speed**            | ⚡ Best with `OMP_NUM_THREADS=8`                             |
+| **Speed**            | ⚡ Best with `OMP_NUM_THREADS=8` and openBlas                |
 | **Scalability**      | ✅ Good up to 8 threads; slowdown is near-linear             |
 | **Resource sharing** | ✅ Lower threads can free CPU for other tasks, but at a cost |
 
+
 ## 📌 8️⃣ Recommendation
 
-| Goal                 | Recommended Threads        |
-| -------------------- | -------------------------- |
-| **Fastest Training** | `OMP_NUM_THREADS=8`        |
-| **Balanced Usage**   | `OMP_NUM_THREADS=4`        |
-| **Low Priority**     | `OMP_NUM_THREADS=1` or `2` |
+| Goal                 | Recommended Threads              |
+| -------------------- | --------------------------       |
+| **Fastest Training** | `OMP_NUM_THREADS=8` with openBlas|
+| **Balanced Usage**   | `OMP_NUM_THREADS=4`              |
+| **Low Priority**     | `OMP_NUM_THREADS=1` or `2`       |
 
 ## 📁 9️⃣ Notes
 
